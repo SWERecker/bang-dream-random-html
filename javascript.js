@@ -43,7 +43,8 @@ finalData = {
 	diff:  "",
 	level: "",
 	type:  "",
-	mode:  "random"
+	mode:  "random",
+	time: 0
 }
 
 $(function () { 
@@ -155,6 +156,7 @@ var btnRandom = new Vue({
 			finalData.diff = "";
 			finalData.level = "";
 			finalData.type = "";
+			var timeStamp = new Date().getTime();
 			filterData.band.forEach(function(bandName){
 				finalData.band += bandName + ",";
 			});
@@ -174,6 +176,7 @@ var btnRandom = new Vue({
 				finalData.type += typeName + ",";
 			});
 			finalData.type = finalData.type.substring(0, finalData.type.lastIndexOf(','));
+			finalData.time = timeStamp;
 			
 			$.get("//api.mocabot.xyz:3002/api", finalData)
 			.done(function(res){
