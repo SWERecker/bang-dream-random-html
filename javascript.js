@@ -178,7 +178,7 @@ var btnRandom = new Vue({
 			finalData.type = finalData.type.substring(0, finalData.type.lastIndexOf(','));
 			finalData.time = timeStamp;
 			
-			$.get("//api.mocabot.xyz:3002/api", finalData)
+			$.get("//api.mocabot.xyz/api", finalData)
 			.done(function(res){
 				randomApp.seen = false;
 				if(res.msg == "error"){
