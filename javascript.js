@@ -44,6 +44,7 @@ finalData = {
 	level: "",
 	type:  "",
 	mode:  "random",
+	data: "",
 	time: 0
 }
 
@@ -156,7 +157,28 @@ var btnRandom = new Vue({
 			finalData.diff = "";
 			finalData.level = "";
 			finalData.type = "";
+			finalData.data = "";
 			var timeStamp = new Date().getTime();
+			if(filterData.band.length == 0){
+				toastr.warning("未选中乐队条件，恢复默认");
+				$("#filBand").find("input").trigger("click");
+			}
+			
+			if(filterData.diff.length == 0){
+				toastr.warning("未选中难度条件，恢复默认");
+				$("input#in26").trigger("click");
+			}
+			
+			if(filterData.level.length == 0){
+				toastr.warning("未选中等级条件，恢复默认");
+				$("#filLevel").find("input").trigger("click");
+			}
+			
+			if(filterData.type.length == 0){
+				toastr.warning("未选中类型条件，恢复默认");
+				$("#filType").find("input").trigger("click");
+			}
+			
 			filterData.band.forEach(function(bandName){
 				finalData.band += bandName + ",";
 			});
@@ -178,6 +200,10 @@ var btnRandom = new Vue({
 			finalData.type = finalData.type.substring(0, finalData.type.lastIndexOf(','));
 			finalData.time = timeStamp;
 			
+			if($('input#useComp').prop('checked')){
+				finalData.data = "comp";
+			}
+			
 			$.get("//api.mocabot.xyz/api", finalData)
 			.done(function(res){
 				randomApp.seen = false;
@@ -194,6 +220,7 @@ var btnRandom = new Vue({
 				resultApp.diffNum = res.result[0].diff;
 				resultApp.typeName = dictionary.type[res.result[0].type];
 				resultApp.seen = true;
+				window.location.href= "#result";
 			});
 		}
 	}
