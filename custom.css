@@ -112,3 +112,7 @@ text-align: center;
 #btnRandomBar{
 	padding-top: 5px;
 }
+
+#btnwhatsthis{
+	cursor: pointer;
+}
